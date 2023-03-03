@@ -2,7 +2,7 @@
 const mongoose = require("mongoose");
 const express = require("express");
 const app = express();
-// const cors = require('cors')
+const cors = require('cors')
 // dotenv.config({ path: "./config.env" });
 
 app.use(express.json());
@@ -13,7 +13,7 @@ const PORT = process.env.PORT;
 require("./db/conn");
 const User = require("./model/userSchema");
 const subGreddiitSchema = require("./model/subgreddiitSchema");
-// app.use(cors())
+app.use(cors())
 
 app.get("/api/users", (req, res) => {
   User.find({}, (err, users) => {
