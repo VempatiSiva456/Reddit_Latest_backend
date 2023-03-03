@@ -19,14 +19,14 @@ app.use(cors())
 app.use(express.static(path.join(__dirname, '/build')));
 
 
-app.get("/api/users", authenticate, (req, res) => {
+app.get("/api/users", (req, res) => {
   User.find({}, (err, users) => {
     if (err) return res.status(500).send(err);
     return res.send(users);
   });
 });
 
-app.get("/api/fsubgreddiits", authenticate, (req, res) => {
+app.get("/api/fsubgreddiits", (req, res) => {
   subGreddiitSchema.find({}, (err, subgreddiits) => {
     if (err) return res.status(500).send(err);
     return res.send(subgreddiits);
