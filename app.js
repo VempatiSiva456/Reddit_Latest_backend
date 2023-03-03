@@ -3,7 +3,8 @@ const mongoose = require("mongoose");
 const express = require("express");
 const app = express();
 const path = require('path');
-const cors = require('cors')
+const cors = require('cors');
+const authenticate = require("./middleware/authenticate");
 // dotenv.config({ path: "./config.env" });
 
 app.use(express.json());
@@ -21,14 +22,14 @@ app.get('/', (req, res) => {
   res.sendFile(path.join(__dirname+'/build/'));
 });
 
-app.get("/api/users", (req, res) => {
+app.get("/api/users", authenticate, (req, res) => {
   User.find({}, (err, users) => {
     if (err) return res.status(500).send(err);
     return res.send(users);
   });
 });
 
-app.get("/api/fsubgreddiits", (req, res) => {
+app.get("/api/fsubgreddiits", authenticate, (req, res) => {
   subGreddiitSchema.find({}, (err, subgreddiits) => {
     if (err) return res.status(500).send(err);
     return res.send(subgreddiits);
