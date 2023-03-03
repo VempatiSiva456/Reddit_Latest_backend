@@ -18,9 +18,6 @@ const subGreddiitSchema = require("./model/subgreddiitSchema");
 app.use(cors())
 app.use(express.static(path.join(__dirname, '/build')));
 
-app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname+'/build/'));
-});
 
 app.get("/api/users", authenticate, (req, res) => {
   User.find({}, (err, users) => {
@@ -41,7 +38,9 @@ app.use(require("./router/auth"));
 //     res.send("Welcome to about page");
 // })
 
-
+app.get('*', (req, res) => {
+  res.sendFile(path.join(__dirname+'/build/'));
+})
 
 app.listen(PORT, () => {
   console.log(`Server is running at port ${PORT}`);
