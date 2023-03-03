@@ -14,6 +14,7 @@ require("./db/conn");
 const User = require("./model/userSchema");
 const subGreddiitSchema = require("./model/subgreddiitSchema");
 app.use(cors())
+app.use(express.static(path.join(__dirname, '/build')));
 
 app.get("/api/users", (req, res) => {
   User.find({}, (err, users) => {
@@ -33,6 +34,10 @@ app.use(require("./router/auth"));
 // app.get('/about', (req, res) => {
 //     res.send("Welcome to about page");
 // })
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname+'/build/'));
+});
 
 app.listen(PORT, () => {
   console.log(`Server is running at port ${PORT}`);
